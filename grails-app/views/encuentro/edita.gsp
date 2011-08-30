@@ -32,7 +32,13 @@
 				<g:hiddenField name="id" value="${encuentro?.id}" />
 				<g:hiddenField name="version" value="${encuentro?.version}" />
 				<fieldset class="form">
-					<g:render template="form"/>
+<div class="fieldcontain ${hasErrors(bean: encuentro, field: 'fecha', 'error')} required">
+	<label for="fecha">
+		<g:message code="encuentro.fecha.label" default="Fecha" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:datePicker name="fecha" precision="minute" value="${encuentro?.fecha}"  />
+</div>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save" action="actualiza" value="${message(code: 'default.button.update.label', default: 'Update')}" />

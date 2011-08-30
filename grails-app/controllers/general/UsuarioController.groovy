@@ -4,7 +4,7 @@ import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
-@Secured(['ROLE_EMP'])
+@Secured(['ROLE_ADMIN'])
 class UsuarioController {
 
     def springSecurityService
@@ -41,10 +41,10 @@ class UsuarioController {
                 def roles = [] as Set
                 if (params.ROLE_ADMIN) {
                     roles << Rol.findByAuthority('ROLE_ADMIN')
-                } else if (params.ROLE_ORG) {
-                    roles << Rol.findByAuthority('ROLE_ORG')
-                } else if (params.ROLE_EMP) {
-                    roles << Rol.findByAuthority('ROLE_EMP')
+//                } else if (params.ROLE_ORG) {
+//                    roles << Rol.findByAuthority('ROLE_ORG')
+//                } else if (params.ROLE_EMP) {
+//                    roles << Rol.findByAuthority('ROLE_EMP')
                 } else {
                     roles << Rol.findByAuthority('ROLE_USER')
                 }
@@ -111,10 +111,10 @@ class UsuarioController {
                     def roles = [] as Set
                     if (params.ROLE_ADMIN) {
                         roles << Rol.findByAuthority('ROLE_ADMIN')
-                    } else if (params.ROLE_ORG) {
-                        roles << Rol.findByAuthority('ROLE_ORG')
-                    } else if (params.ROLE_EMP) {
-                        roles << Rol.findByAuthority('ROLE_EMP')
+//                    } else if (params.ROLE_ORG) {
+//                        roles << Rol.findByAuthority('ROLE_ORG')
+//                    } else if (params.ROLE_EMP) {
+//                        roles << Rol.findByAuthority('ROLE_EMP')
                     } else {
                         roles << Rol.findByAuthority('ROLE_USER')
                     }
@@ -254,10 +254,10 @@ class UsuarioController {
         def roles = [] as Set
         if (params.ROLE_ADMIN) {
             roles << Rol.findByAuthority('ROLE_ADMIN')
-        } else if (params.ROLE_ORG) {
-            roles << Rol.findByAuthority('ROLE_ORG')
-        } else if (params.ROLE_EMP) {
-            roles << Rol.findByAuthority('ROLE_EMP')
+//        } else if (params.ROLE_ORG) {
+//            roles << Rol.findByAuthority('ROLE_ORG')
+//        } else if (params.ROLE_EMP) {
+//            roles << Rol.findByAuthority('ROLE_EMP')
         } else {
             roles << Rol.findByAuthority('ROLE_USER')
         }

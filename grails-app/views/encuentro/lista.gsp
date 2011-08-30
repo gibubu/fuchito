@@ -25,11 +25,15 @@
 				<thead>
 					<tr>
 
+<!--                                                <th><g:message code="encuentro.fecha.label" default="Fecha" /></th>-->
+
 						<g:sortableColumn property="fecha" title="${message(code: 'encuentro.fecha.label', default: 'Fecha')}" />
 					
 						<th><g:message code="encuentro.uno.label" default="Uno" /></th>
 
                                                 <th><g:message code="encuentro.dos.label" default="Dos" /></th>
+
+                                                <g:sortableColumn property="jugado" title="${message(code: 'encuentro.jugado.label', default: '#')}" />
 					
 					</tr>
 				</thead>
@@ -37,11 +41,17 @@
 				<g:each in="${encuentros}" status="i" var="encuentro">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="ver" id="${encuentro.id}">${fieldValue(bean: encuentro, field: "fecha")}</g:link></td>
+<!--                                                <td>${fieldValue(bean: encuentro, field: "fecha")}</td>-->
+                                          
+                                                <td><g:link action="ver" id="${encuentro.id}">${fieldValue(bean: encuentro, field: "fecha")}</g:link></td>
 
                                                 <td>${fieldValue(bean: encuentro, field: "uno")}</td>
 
                                                 <td>${fieldValue(bean: encuentro, field: "dos")}</td>
+
+                                                <td>${fieldValue(bean: encuentro, field: "jugado")}</td>
+
+<!--                                                <td><g:link action="ver" id="${encuentro.jugado}">${fieldValue(bean: encuentro, field: "jugado")}</g:link></td>-->
 
 					</tr>
 				</g:each>

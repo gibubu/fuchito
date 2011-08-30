@@ -163,4 +163,50 @@ class JugadorController {
             }
         }
     }
+
+//    def imagen = {
+//        try {
+//            def producto = Producto.get(params.id)
+//            def foto
+//            for(x in producto?.imagenes) {
+//                foto = x
+//                break;
+//            }
+//            if (!foto) {
+//                def directorio = servletContext.getRealPath("/images")
+//                def file = new File("${directorio}/activo_fijo.jpg")
+//                foto = new Imagen(
+//                    nombre : 'activoFijo.jpg'
+//                    , tipoContenido : 'image/jpeg'
+//                    , tamano : file.size()
+//                    , archivo : file.getBytes()
+//                )
+//            }
+//            log.debug "Mostrando imagen ${foto.nombre}"
+//            log.debug "TipoContenido: ${foto.tipoContenido}"
+//            response.contentType = foto.tipoContenido
+//            //response.setHeader("Content-disposition", "attachment; filename=${foto?.nombre}")
+//            log.debug "Tamano: ${foto.tamano}"
+//            response.contentLength = foto.tamano
+//            response.outputStream << foto.archivo
+//            //response.outputStream.flush()
+//            //return;
+//        } catch(Exception e) {
+//            log.error("No se pudo obtener la imagen", e)
+//        }
+//    }
+
+//    def test = {
+//        def foto = Imagen.get(params.id)
+//        log.debug "Mostrando imagen ${foto.nombre}"
+//        log.debug "TipoContenido: ${foto.tipoContenido}"
+//        response.contentType = foto.tipoContenido
+//        //response.setHeader("Content-disposition", "attachment; filename=${foto?.nombre}")
+//        log.debug "Tamano: ${foto.tamano}"
+//        response.contentLength = foto.tamano
+//        log.debug "Foto: ${foto.archivo}"
+//        response.outputStream << foto.archivo
+//        response.outputStream.flush()
+//        return;
+//    }
 }

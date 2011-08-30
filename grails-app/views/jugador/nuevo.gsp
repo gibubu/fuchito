@@ -28,8 +28,32 @@
 			</g:hasErrors>
 			<g:form action="crea" >
 				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
+
+<div class="fieldcontain ${hasErrors(bean: jugador, field: 'nombre', 'error')} required">
+	<label for="nombre">
+		<g:message code="jugador.nombre.label" default="Nombre" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="nombre" maxlength="64" required="" value="${jugador?.nombre}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: jugador, field: 'apellido', 'error')} required">
+	<label for="apellido">
+		<g:message code="jugador.apellido.label" default="Apellido" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="apellido" maxlength="128" required="" value="${jugador?.apellido}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: jugador, field: 'archivo', 'error')} required">
+	<label for="archivo">
+		<g:message code="jugador.archivo.label" default="Archivo" />
+		<span class="required-indicator">*</span>
+	</label>
+	<input type="file" id="archivo" name="archivo" />
+</div>
+
+                                </fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>

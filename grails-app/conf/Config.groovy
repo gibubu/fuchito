@@ -113,10 +113,13 @@ grails.gorm.failOnError = true
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'general.Usuario'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'general.UsuarioRol'
 grails.plugins.springsecurity.authority.className = 'general.Rol'
+//grails.plugins.springsecurity.roleHierarchy = '''
+//   ROLE_ADMIN > ROLE_ORG
+//   ROLE_ORG > ROLE_EMP
+//   ROLE_EMP > ROLE_USER
+//'''
 grails.plugins.springsecurity.roleHierarchy = '''
-   ROLE_ADMIN > ROLE_ORG
-   ROLE_ORG > ROLE_EMP
-   ROLE_EMP > ROLE_USER
+   ROLE_ADMIN > ROLE_USER
 '''
 
 grails.plugins.springsecurity.useSecurityEventListener = true
