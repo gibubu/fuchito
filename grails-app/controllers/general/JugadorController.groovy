@@ -30,6 +30,7 @@ class JugadorController {
         def usuario = springSecurityService.currentUser
         def jugador = new Jugador(params)
         jugador.equipo = usuario.equipo
+        jugador.torneo = usuario.equipo.torneo.toString()
         if (jugador.save(flush: true)) {
             flash.message = message(code: 'default.created.message', args: [message(code: 'jugador.label', default: 'Jugador'), jugador.nombre])
 //            redirect(action: "ver", id: jugador.id)

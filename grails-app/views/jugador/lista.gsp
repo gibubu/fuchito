@@ -30,6 +30,8 @@
 						<g:sortableColumn property="apellido" title="${message(code: 'jugador.apellido.label', default: 'Apellido')}" />
 					
 						<th><g:message code="jugador.equipo.label" default="Equipo" /></th>
+
+                                                <th><g:message code="jugador.goles.label" default="Goles" /></th>
 					
 					</tr>
 				</thead>
@@ -42,6 +44,8 @@
 						<td>${fieldValue(bean: jugador, field: "apellido")}</td>
 					
 						<td>${fieldValue(bean: jugador, field: "equipo")}</td>
+
+                                                <td>${fieldValue(bean: jugador, field: "goles")}</td>
 					
 					</tr>
 				</g:each>

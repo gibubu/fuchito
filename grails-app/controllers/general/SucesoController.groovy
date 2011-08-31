@@ -31,6 +31,12 @@ class SucesoController {
         def suceso = new Suceso(params)
         suceso.torneo = usuario.equipo.torneo
         if (suceso.save(flush: true)) {
+            if(suceso.nombre == "GOL"){
+                def s = Jugador.findByNombre(suceso.jugador.nombre)
+                s.goles += 1
+                s.save(flush:true)
+            }
+                
             flash.message = message(code: 'default.created.message', args: [message(code: 'suceso.label', default: 'Suceso'), suceso.id])
             redirect(action: "ver", id: suceso.id)
         }
