@@ -14,9 +14,9 @@ class GoleoController {
     }
 
         def lista = {
-		params.max = Math.min(params.max ? params.int('max') : 10, 100)
+		params.max = Math.min(params.max ? params.int('max') : 100, 100)
         def usuario = springSecurityService.currentUser
-        [jugadores: Jugador.findAllByTorneo(usuario.equipo.torneo.toString()), totalDeJugadores: Equipo.countByTorneo(usuario.equipo.torneo)]
+        [jugadores: Jugador.listOrderByGoles(Jugador.findAllByTorneo(usuario.equipo.torneo.toString()), order: "desc"), totalDeJugadores: Equipo.countByTorneo(usuario.equipo.torneo)]
 //                [equipos: Equipo.list(params), totalDeEquipos: Equipo.count()]
 	}
 }

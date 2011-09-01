@@ -21,7 +21,7 @@ class EncuentroController {
                 if(a == 0) {b = 10} else {b = a/2}
 		params.max = Math.min(params.max ? params.int('max') : b, 100)
 //                def c = Encuentro.findAllByTorneo(usuario.equipo.torneo, params)
-		[encuentros: Encuentro.findAllByTorneo(usuario.equipo.torneo, params), totalDeEncuentros: Encuentro.countByTorneo(usuario.equipo.torneo)]
+[encuentros: Encuentro.findAllByTorneo(usuario.equipo.torneo, params), totalDeEncuentros: Encuentro.countByTorneo(usuario.equipo.torneo)]
 	}
 
     def nuevo = {

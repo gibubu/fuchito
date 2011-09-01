@@ -1,3 +1,4 @@
+
 <%@ page import="general.Jugador" %>
 <!doctype html>
 <html>
@@ -11,24 +12,24 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+<!--				<li><g:link class="create" action="nuevo"><g:message code="default.new.label" args="[entityName]" /></g:link></li>-->
+<!--                                <li><g:link class="edit" action="dias"><g:message code="jugador.dias.label" default="Dias a Jugar" /></g:link></li>-->
 			</ul>
 		</div>
 		<div id="list-jugador" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1><g:message code="jugador.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-                        <table>
+			<table>
 				<thead>
 					<tr>
 
-						<th><g:message code="nombre.label" default="Nombre" /></th>
-<!--                                                <g:sortableColumn property="nombre" title="${message(code: 'nombre.label', default: 'Nombre')}" />-->
+						<g:sortableColumn property="nombre" title="${message(code: 'jugador.nombre.label', default: 'Nombre')}" />
 
-						<th><g:message code="equipo.label" default="Equipo" /></th>
-<!--                                                <g:sortableColumn property="equipo" title="${message(code: 'equipo.label', default: 'Equipo')}" />-->
+                                                <g:sortableColumn property="equipo" title="${message(code: 'jugador.equipo.label', default: 'Equipo')}" />
 
-                                                <g:sortableColumn property="goles" title="${message(code: 'goles.label', default: 'Goles')}" />
+                                                <g:sortableColumn property="goles" title="${message(code: 'jugador.goles.label', default: 'Goles')}" />
 
 					</tr>
 				</thead>
@@ -36,13 +37,11 @@
 				<g:each in="${jugadores}" status="i" var="jugador">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                                                <td>${fieldValue(bean: jugador, field: "nombre")}</td>
-
-<!--						<td><g:link action="show" id="${jugador.id}">${fieldValue(bean: jugador, field: "nombre")}</g:link></td>-->
+						<td><g:link id="${jugador.id}">${fieldValue(bean: jugador, field: "nombre")}</g:link></td>
 
 						<td>${fieldValue(bean: jugador, field: "equipo")}</td>
 
-						<td>${fieldValue(bean: jugador, field: "goles")}</td>
+                                                <td>${fieldValue(bean: jugador, field: "goles")}</td>
 
 					</tr>
 				</g:each>
