@@ -29,6 +29,8 @@
                             <g:sortableColumn property="tipoContenido" title="${message(code: 'imagen.tipoContenido.label', default: 'Tipo Contenido')}" />
                         
                             <g:sortableColumn property="tamano" title="${message(code: 'imagen.tamano.label', default: 'Tamano')}" />
+
+                            <th><g:message code="imagen.label" default="Imagen" /></th>
                         
                         </tr>
                     </thead>
@@ -43,6 +45,8 @@
                             <td>${fieldValue(bean: imagenInstance, field: "tipoContenido")}</td>
                         
                             <td>${fieldValue(bean: imagenInstance, field: "tamano")}</td>
+
+                            <td valign="top" class="value"><img src="${createLink(action:'mostrar',id:imagenInstance?.id)}" /></td>
                         
                         </tr>
                     </g:each>

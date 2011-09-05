@@ -8,7 +8,7 @@ class Jugador {
     Equipo equipo
     String torneo
 //    Set imagenes
-//    byte[] archivo
+    byte[] archivo
 
     static belongsTo = [Equipo]
 
@@ -17,7 +17,11 @@ class Jugador {
     static constraints = {
         nombre   blank: false, maxSize: 64
         apellido blank: false, maxSize: 128
-//        archivo maxSize:20000000
+        archivo maxSize:20000000
+    }
+
+    static mapping = {
+        table 'jugadores'
     }
 
     String toString() {
