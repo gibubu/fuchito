@@ -45,13 +45,22 @@
 	<g:textField name="apellido" maxlength="128" required="" value="${jugador?.apellido}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: jugador, field: 'archivo', 'error')} required">
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="archivo"><g:message code="jugador.archivo.label" default="Archivo" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: jugador, field: 'archivo', 'errors')}">
+                                    <input type="file" id="imagen" name="archivo" />
+                                </td>
+                            </tr>
+
+<!--<div class="fieldcontain ${hasErrors(bean: jugador, field: 'archivo', 'error')} required">
 	<label for="archivo">
 		<g:message code="jugador.archivo.label" default="Archivo" />
 		<span class="required-indicator">*</span>
 	</label>
 	<input type="file" id="archivo" name="archivo" />
-</div>
+</div>-->
 
                                 </fieldset>
 				<fieldset class="buttons">

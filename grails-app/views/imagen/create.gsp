@@ -27,7 +27,22 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
+
+<div class="fieldcontain ${hasErrors(bean: imagen, field: 'nombre', 'error')} required">
+	<label for="nombre">
+		<g:message code="jugador.nombre.label" default="Nombre" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="nombre" maxlength="64" required="" value="${imagen?.nombre}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: imagen, field: 'tipoContenido', 'error')} required">
+	<label for="tipoContenido">
+		<g:message code="jugador.nombre.label" default="Apellido" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:textField name="tipoContenido" maxlength="64" required="" value="${imagen?.tipoContenido}"/>
+</div>
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="imagen"><g:message code="imagen.archivo.label" default="Archivo" /></label>

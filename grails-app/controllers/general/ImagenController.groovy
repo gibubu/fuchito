@@ -12,8 +12,10 @@ class ImagenController {
 
                 def archivo = request.getFile('imagen')
                 if (!archivo.empty) {
-                    imagen.nombre = archivo.originalFilename
-                    imagen.tipoContenido = archivo.contentType
+//                    imagen.nombre = archivo.originalFilename
+//                    imagen.tipoContenido = archivo.contentType
+                    imagen.nombre = params.nombre
+                    imagen.tipoContenido = params.tipoContenido
                     imagen.tamano = archivo.size
                     imagen.archivo = archivo.bytes
                 }

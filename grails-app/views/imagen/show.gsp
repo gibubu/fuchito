@@ -21,14 +21,6 @@
             <div class="dialog">
                 <table>
                     <tbody>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="imagen.id.label" default="Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: imagenInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="imagen.nombre.label" default="Nombre" /></td>
                             
@@ -37,16 +29,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="imagen.tipoContenido.label" default="Tipo Contenido" /></td>
+                            <td valign="top" class="name"><g:message code="imagen.tipoContenido.label" default="Apellido" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: imagenInstance, field: "tipoContenido")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="imagen.tamano.label" default="Tamano" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: imagenInstance, field: "tamano")}</td>
                             
                         </tr>
                     

@@ -42,19 +42,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="tipoContenido"><g:message code="imagen.tipoContenido.label" default="Tipo Contenido" /></label>
+                                  <label for="tipoContenido"><g:message code="imagen.tipoContenido.label" default="Apellido" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: imagenInstance, field: 'tipoContenido', 'errors')}">
                                     <g:textField name="tipoContenido" maxlength="128" value="${imagenInstance?.tipoContenido}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="tamano"><g:message code="imagen.tamano.label" default="Tamano" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: imagenInstance, field: 'tamano', 'errors')}">
-                                    <g:textField name="tamano" value="${fieldValue(bean: imagenInstance, field: 'tamano')}" />
                                 </td>
                             </tr>
                         

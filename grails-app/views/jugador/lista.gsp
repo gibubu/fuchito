@@ -46,6 +46,8 @@
 						<td>${fieldValue(bean: jugador, field: "equipo")}</td>
 
                                                 <td>${fieldValue(bean: jugador, field: "goles")}</td>
+
+                                                <td valign="top" class="value"><img src="${createLink(action:'mostrar',id:jugador?.id)}" /></td>
 					
 					</tr>
 				</g:each>

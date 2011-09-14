@@ -10,6 +10,7 @@
             <div class="nav" role="navigation">
                 <ul>
                     <li><g:link class="list" controller="jugador" ><g:message code="jugador.equipo.label" default="Mi Equipo" /></g:link></li>
+                    <li><g:link class="list" controller="imagen" ><g:message code="jugador.equipo.label" default="Mi Equipo" /></g:link></li>
                     <li><g:link class="list" controller="estadistica" ><g:message code="estadistica.label" default="Estadísticas" /></g:link></li>
                     <li><g:link class="list" controller="goleo" ><g:message code="goleo.label" default="Goleo" /></g:link></li>
                     <li><g:link class="list" controller="admin" ><g:message code="admin.label" default="Admin" /></g:link></li>

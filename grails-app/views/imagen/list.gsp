@@ -22,14 +22,10 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'imagen.id.label', default: 'Id')}" />
-                        
                             <g:sortableColumn property="nombre" title="${message(code: 'imagen.nombre.label', default: 'Nombre')}" />
                         
-                            <g:sortableColumn property="tipoContenido" title="${message(code: 'imagen.tipoContenido.label', default: 'Tipo Contenido')}" />
+                            <g:sortableColumn property="tipoContenido" title="${message(code: 'imagen.tipoContenido.label', default: 'Apellido')}" />
                         
-                            <g:sortableColumn property="tamano" title="${message(code: 'imagen.tamano.label', default: 'Tamano')}" />
-
                             <th><g:message code="imagen.label" default="Imagen" /></th>
                         
                         </tr>
@@ -38,14 +34,10 @@
                     <g:each in="${imagenInstanceList}" status="i" var="imagenInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${imagenInstance.id}">${fieldValue(bean: imagenInstance, field: "id")}</g:link></td>
-                        
-                            <td>${fieldValue(bean: imagenInstance, field: "nombre")}</td>
+                            <td><g:link action="show" id="${imagenInstance.id}">${fieldValue(bean: imagenInstance, field: "nombre")}</g:link></td>
                         
                             <td>${fieldValue(bean: imagenInstance, field: "tipoContenido")}</td>
                         
-                            <td>${fieldValue(bean: imagenInstance, field: "tamano")}</td>
-
                             <td valign="top" class="value"><img src="${createLink(action:'mostrar',id:imagenInstance?.id)}" /></td>
                         
                         </tr>

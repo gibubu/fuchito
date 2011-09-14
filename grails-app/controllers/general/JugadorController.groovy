@@ -26,11 +26,44 @@ class JugadorController {
         return [jugador: jugador]
     }
 
+    def scaffold = Jugador
+
+//    def crea = {
+//        def jugador
+//        def usuario = springSecurityService.currentUser
+//        try {
+//            Jugador.withTransaction {
+//                jugador = new Jugador(params)
+//
+//                def archivo = request.getFile('archivo')
+//                if (!archivo.empty) {
+////                    imagen.nombre = archivo.originalFilename
+////                    imagen.tipoContenido = archivo.contentType
+//                    jugador.nombre = params.nombre
+//                    jugador.apellido = params.apellido
+//                    jugador.equipo = usuario.equipo
+//                    jugador.torneo = usuario.equipo.torneo.toString()
+//                    jugador.archivo = archivo.bytes
+//                }
+//
+//                jugador.save()
+//                flash.message = message(code: 'default.created.message', args: [message(code: 'jugador.label', default: 'Jugador'), jugador.nombre])
+//                redirect(action: "nuevo")
+//            }
+//        } catch(Exception e) {
+//            log.error "No se pudo crear el jugador", e
+//            flash.message = "No se pudo crear el jugador"
+//            render(view:'lista')
+//        }
+//    }
+
     def crea = {
         def usuario = springSecurityService.currentUser
+        def archivo = request.getFile('jugador')
         def jugador = new Jugador(params)
         jugador.equipo = usuario.equipo
         jugador.torneo = usuario.equipo.torneo.toString()
+        jugador.archivo = archivo.bytes
         if (jugador.save(flush: true)) {
             flash.message = message(code: 'default.created.message', args: [message(code: 'jugador.label', default: 'Jugador'), jugador.nombre])
 //            redirect(action: "ver", id: jugador.id)
@@ -52,7 +85,7 @@ class JugadorController {
         }
     }
 
-    @Secured(['ROLE_ORG'])
+    @Secured(['ROLE_ADMIN'])
     def edita = {
         def jugador = Jugador.get(params.id)
         if (!jugador) {
@@ -64,7 +97,7 @@ class JugadorController {
         }
     }
 
-    @Secured(['ROLE_ORG'])
+    @Secured(['ROLE_ADMIN'])
     def actualiza = {
         def jugador = Jugador.get(params.id)
         if (jugador) {
@@ -92,7 +125,7 @@ class JugadorController {
         }
     }
 
-    @Secured(['ROLE_ORG'])
+    @Secured(['ROLE_ADMIN'])
     def elimina = {
         def jugador = Jugador.get(params.id)
         if (jugador) {
@@ -162,6 +195,16 @@ class JugadorController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'equipo.label', default: 'Equipo'), params.id])
                 redirect(action: "lista")
             }
+        }
+    }
+
+    def mostrar = {
+        def jugador = Jugador.get(params.id)
+        if (jugador) {
+            response.outputStream << jugador.archivo
+            return;
+        } else {
+            throw new RuntimeException('No se encontro al jugador')
         }
     }
 
