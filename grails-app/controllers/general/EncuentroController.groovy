@@ -14,15 +14,16 @@ class EncuentroController {
         redirect(action: "lista", params: params)
     }
 
-	def lista = {
-                def usuario = springSecurityService.currentUser
-                def a = Equipo.findAllByTorneo(usuario.equipo.torneo).size()
-                int b
-                if(a == 0) {b = 10} else {b = a/2}
-		params.max = Math.min(params.max ? params.int('max') : b, 100)
-//                def c = Encuentro.findAllByTorneo(usuario.equipo.torneo, params)
-[encuentros: Encuentro.findAllByTorneo(usuario.equipo.torneo, params), totalDeEncuentros: Encuentro.countByTorneo(usuario.equipo.torneo)]
-	}
+    def lista = {
+        def usuario = springSecurityService.currentUser
+        //                def a = Equipo.findAllByTorneo(usuario.equipo.torneo).size()
+        //                int b
+        //                if(a == 0) {b = 10} else {b = a/2}
+        //		params.max = Math.min(params.max ? params.int('max') : b, 100)
+        params.max = Math.min(params.max ? params.int('max') : 100, 100)
+        //                def c = Encuentro.findAllByTorneo(usuario.equipo.torneo, params)
+        [encuentros: Encuentro.findAllByTorneo(usuario.equipo.torneo, params), totalDeEncuentros: Encuentro.countByTorneo(usuario.equipo.torneo)]
+    }
 
     def nuevo = {
         def encuentro = new Encuentro()
@@ -115,13 +116,28 @@ class EncuentroController {
     def genera = {
         def usuario = springSecurityService.currentUser
         def equipos = Equipo.findAllByTorneo(usuario.equipo.torneo, params)
+        def epos = Encuentro.findAllByTorneo(usuario.equipo.torneo, params)
+        def tama = Encuentro.countByTorneo(usuario.equipo.torneo)
 
         try {
+            if(tama > 0){
+                for(a in 0..tama){
+                    def tro = Encuentro.get(epos[a].id)
+                    if (tro != null) {
+                        try {
+                            tro.delete(flush: true)
+                        } catch (Exception e){
+                            log.debug "malo algo paso"
+                        }
+                    }
+                }
+            }
+            
             //genera todos los encuentros posibles
             for(i in 0..equipos.size()-1){
                 if(i != equipos.size()-1){
                     for(j in i+1..equipos.size()-1){
-                         rap(usuario.equipo.torneo, equipos[i], equipos[j], new Date(), (equipos[i].nombre+" vs "+equipos[j].nombre))
+                        rap(usuario.equipo.torneo, equipos[i], equipos[j], new Date(), (equipos[i].nombre+" vs "+equipos[j].nombre))
                     }
                 } else {
                     break
@@ -132,7 +148,7 @@ class EncuentroController {
         }
 
         //trae la jornada con los encuentros disponibles
-        def encuentros = jornadas()
+//        def encuentros = jornadas()
 
         redirect(action: "lista")
     }
@@ -164,103 +180,63 @@ class EncuentroController {
         def encuentros = Encuentro.findAllByTorneo(usuario.equipo.torneo, params)
         def semi = new ArrayList()
         def jorna = 1
-        def jugao = 1
+        def jugao = 0
+//        def te = new HashMap()
 
         //trae todos los encuentros que no se han jugado
         for(i in 0..encuentros.size()-1){
-            if (encuentros[i].jugado == 0){
+            if (encuentros[i].jornada == 0){
                 semi.add(encuentros[i])
             }
         }
+//        def mm = Equipo.countByTorneo(usuario.equipo.torneo)
 
         while(semi.size() != 0){
+            //////////
+            //////////
+            //////////
+            //////////
+            //////////
+            //////////
+            //////////
             //elimina todos los encuentros que no son posibles (por tener equipos repetidos)
-    //        def ene = new ArrayList()
-            def te = new HashMap()
+            //        def ene = new ArrayList()
+//            if(jugao == mm/2){
+//                te = new HashMap()
+//            }
             for(i in 0..semi.size()-1){
-                if(!te.containsKey(semi[i].uno.nombre) & !te.containsKey(semi[i].dos.nombre)){
-                    te.put((semi[i].uno.nombre), i)
-                    te.put((semi[i].dos.nombre), i)
-                    log.debug semi[i].uno.nombre + " : " + semi[i].dos.nombre
+//                if(te.isEmpty()){
+//                    jugao++
+//                    te.put((semi[i].uno.nombre), i)
+//                    te.put((semi[i].dos.nombre), i)
+//                    //guarda la lista de los encuentros limpios
+//                    rpg((semi[i].uno.nombre+" vs "+semi[i].dos.nombre),new Date(),0,jorna)
+//                }
+//                if(!te.containsKey(semi[i].uno.nombre) && !te.containsKey(semi[i].dos.nombre)){
+//                    if(jugao == mm/2){
+//                        jugao = 1
+                        jorna++
+//                    }else{
+//                        jugao++
+//                    }
+//                    te.put((semi[i].uno.nombre), i)
+//                    te.put((semi[i].dos.nombre), i)
+//                    log.debug semi[i].uno.nombre + " : " + semi[i].dos.nombre
                     //guarda la lista de los encuentros limpios
-    //                ene.add(semi[i])
-                    rpg((semi[i].uno.nombre+" vs "+semi[i].dos.nombre),new Date(),jugao++,jorna)
-                }
+                    //                ene.add(semi[i])
+                    rpg((semi[i].uno.nombre+" vs "+semi[i].dos.nombre),new Date(),0,jorna)
+                    //                    log.debug semi[i].uno.nombre+" vs "+semi[i].dos.nombre
+//                }
             }
 
-            jorna++
             log.debug "x-x-x-x"
             //trae todos los encuentros que no se han jugado
             semi = new ArrayList()
             for(i in 0..encuentros.size()-1){
-                if (encuentros[i].jugado == 0){
+                if (encuentros[i].jornada == 0){
                     semi.add(encuentros[i])
                 }
             }
         }
     }
-    
-//        def random = new Random()
-//        def jorna = 1
-//        int count = 0
-
-//        log.debug ene.get(1)
-//        while(ene.size() != 0){
-//            log.debug "entro a ?"
-//            count ++
-//            def test = random.nextInt(ene.size())+1
-//            def dia = usuario.equipo.torneo.inicio
-//
-//            while(ene[test] == 0){
-//                test = random.nextInt(ene.size())+1
-//            }
-//
-//            switch (Date.parse("yyyy-MM-dd", dia.format("yyyy-MM-dd")).format("EEEE")){
-//                case 'domingo':
-//                    if(usuario.equipo.torneo.domingo == true){
-////                        rpg(encuentros[test].id_encuentro, dia, 1, jorna)
-//                        log.debug ene[test]
-//                    }else{ break }
-//                case 'lunes':
-//                    if(usuario.equipo.torneo.lunes == true){
-////                        rpg(encuentros[test].id_encuentro, dia, 1, jorna)
-//                        log.debug "lunes"
-//                    }else{ break }
-//                case 'martes':
-//                    if(usuario.equipo.torneo.martes == true){
-////                        rpg(encuentros[test].id_encuentro, dia, 1, jorna)
-//                    }else{ break }
-//                case 'miércoles':
-//                    if(usuario.equipo.torneo.miercoles == true){
-////                        rpg(encuentros[test].id_encuentro, dia, 1, jorna)
-//                    }else{ break }
-//                case 'jueves':
-//                    if(usuario.equipo.torneo.jueves == true){
-////                        rpg(encuentros[test].id_encuentro, dia, 1, jorna)
-//                    }else{ break }
-//                case 'viernes':
-//                    if(usuario.equipo.torneo.viernes == true){
-////                        rpg(encuentros[test].id_encuentro, dia, 1, jorna)
-//                    }else{ break }
-//                case 'sábado':
-//                    if(usuario.equipo.torneo.sabado == true){
-////                        rpg(encuentros[test].id_encuentro, dia, 1, jorna)
-//                    }else{ break }
-//                default:
-//                    break
-//            }
-//
-//            if(count == 2){
-//                jorna++
-//                dia = dia.next()
-//                ene = jornadas(partidos)
-//            }
-//
-//            if(jorna >= partidos/ene.size()){
-//                break
-//            }
-//        }
-//
-//        return ene
-//    }
 }

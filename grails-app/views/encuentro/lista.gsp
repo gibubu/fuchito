@@ -33,7 +33,7 @@
 
                                                 <th><g:message code="encuentro.dos.label" default="Dos" /></th>
 
-                                                <g:sortableColumn property="jugado" title="${message(code: 'encuentro.jugado.label', default: '#')}" />
+                                                <g:sortableColumn property="jornada" title="${message(code: 'encuentro.jornada.label', default: '#')}" />
 					
 					</tr>
 				</thead>
@@ -49,9 +49,9 @@
 
                                                 <td>${fieldValue(bean: encuentro, field: "dos")}</td>
 
-                                                <td>${fieldValue(bean: encuentro, field: "jugado")}</td>
+                                                <td>${fieldValue(bean: encuentro, field: "jornada")}</td>
 
-<!--                                                <td><g:link action="ver" id="${encuentro.jugado}">${fieldValue(bean: encuentro, field: "jugado")}</g:link></td>-->
+<!--                                                <td><g:link action="ver" id="${encuentro.jornada}">${fieldValue(bean: encuentro, field: "jornada")}</g:link></td>-->
 
 					</tr>
 				</g:each>

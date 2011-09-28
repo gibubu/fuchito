@@ -25,7 +25,6 @@ class Torneo {
     }
 
     String toString() {
-        //return "$nombre  : $inicio - $fin"
-        return "$nombre"
+        return "$nombre"//: $inicio - $fin"
     }
 }

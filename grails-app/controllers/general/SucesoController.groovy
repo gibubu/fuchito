@@ -26,6 +26,15 @@ class SucesoController {
         return [suceso: suceso]
     }
 
+    def antes = {
+        for(i in 0 .. 10){
+
+        }
+        def suceso = new Suceso()
+        suceso.properties = params
+        return [suceso: suceso]
+    }
+    
     def crea = {
         def usuario = springSecurityService.currentUser
         def suceso = new Suceso(params)
@@ -142,4 +151,5 @@ class SucesoController {
             }
         }
     }
+
 }
