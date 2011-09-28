@@ -2,6 +2,7 @@
 <!doctype html>
 <html>
 	<head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'jugador.label', default: 'Jugador')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
@@ -26,41 +27,33 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form action="crea" >
+                        <g:form action="crea" method="post" enctype="multipart/form-data" >
 				<fieldset class="form">
 
-<div class="fieldcontain ${hasErrors(bean: jugador, field: 'nombre', 'error')} required">
-	<label for="nombre">
-		<g:message code="jugador.nombre.label" default="Nombre" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:textField name="nombre" maxlength="64" required="" value="${jugador?.nombre}"/>
-</div>
+                                  <div class="fieldcontain ${hasErrors(bean: jugador, field: 'nombre', 'error')} required">
+                                          <label for="nombre">
+                                                  <g:message code="jugador.nombre.label" default="Nombre" />
+                                                  <span class="required-indicator">*</span>
+                                          </label>
+                                          <g:textField name="nombre" maxlength="64" required="" value="${jugador?.nombre}"/>
+                                  </div>
 
-<div class="fieldcontain ${hasErrors(bean: jugador, field: 'apellido', 'error')} required">
-	<label for="apellido">
-		<g:message code="jugador.apellido.label" default="Apellido" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:textField name="apellido" maxlength="128" required="" value="${jugador?.apellido}"/>
-</div>
+                                  <div class="fieldcontain ${hasErrors(bean: jugador, field: 'apellido', 'error')} required">
+                                          <label for="apellido">
+                                                  <g:message code="jugador.apellido.label" default="Apellido" />
+                                                  <span class="required-indicator">*</span>
+                                          </label>
+                                          <g:textField name="apellido" maxlength="128" required="" value="${jugador?.apellido}"/>
+                                  </div>
 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="archivo"><g:message code="jugador.archivo.label" default="Archivo" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: jugador, field: 'archivo', 'errors')}">
-                                    <input type="file" id="imagen" name="archivo" />
-                                </td>
-                            </tr>
-
-<!--<div class="fieldcontain ${hasErrors(bean: jugador, field: 'archivo', 'error')} required">
-	<label for="archivo">
-		<g:message code="jugador.archivo.label" default="Archivo" />
-		<span class="required-indicator">*</span>
-	</label>
-	<input type="file" id="archivo" name="archivo" />
-</div>-->
+                                  <tr class="prop">
+                                      <td valign="top" class="name">
+                                          <label for="imagen"><g:message code="jugador.imagen"/></label>
+                                      </td>
+                                      <td valign="top" class="value ${hasErrors(bean: jugador, field: 'imagen', 'errors')}">
+                                          <input type="file" name="imagen" />
+                                      </td>
+                                  </tr>
 
                                 </fieldset>
 				<fieldset class="buttons">

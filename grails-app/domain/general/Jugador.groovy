@@ -7,21 +7,22 @@ class Jugador {
     int goles = 0
     Equipo equipo
     String torneo
-//    Set imagenes
-    byte[] archivo
+    Set imagenes
+
 
     static belongsTo = [Equipo]
 
-//    static hasMany = [imagenes: Imagen]
+    static hasMany = [imagenes: Imagen]
 
     static constraints = {
         nombre   blank: false, maxSize: 64
         apellido blank: false, maxSize: 128
-        archivo maxSize:20000000
+
     }
 
     static mapping = {
         table 'jugadores'
+        imagenes cascade:'all-delete-orphan'
     }
 
     String toString() {

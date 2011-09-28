@@ -22,34 +22,38 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list jugador">
-			
+
 				<g:if test="${jugador?.nombre}">
 				<li class="fieldcontain">
 					<span id="nombre-label" class="property-label"><g:message code="jugador.nombre.label" default="Nombre" /></span>
-					
+
 						<span class="property-value" aria-labelledby="nombre-label"><g:fieldValue bean="${jugador}" field="nombre"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 				<g:if test="${jugador?.apellido}">
 				<li class="fieldcontain">
 					<span id="apellido-label" class="property-label"><g:message code="jugador.apellido.label" default="Apellido" /></span>
-					
+
 						<span class="property-value" aria-labelledby="apellido-label"><g:fieldValue bean="${jugador}" field="apellido"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 				<g:if test="${jugador?.equipo}">
 				<li class="fieldcontain">
 					<span id="equipo-label" class="property-label"><g:message code="jugador.equipo.label" default="Equipo" /></span>
-					
+
 						<span class="property-value" aria-labelledby="equipo-label"><g:link controller="equipo" action="show" id="${jugador?.equipo?.id}">${jugador?.equipo?.encodeAsHTML()}</g:link></span>
-					
+
 				</li>
 				</g:if>
-			
+
+                                <tr class="prop">
+                                  <td colspan="2"><img src="${createLink(action:'imagen',id:jugador?.id)}" /></td>
+                                </tr>
+
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

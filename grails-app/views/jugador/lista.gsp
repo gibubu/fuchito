@@ -24,31 +24,34 @@
 			<table>
 				<thead>
 					<tr>
-					
+
 						<g:sortableColumn property="nombre" title="${message(code: 'jugador.nombre.label', default: 'Nombre')}" />
-					
+
 						<g:sortableColumn property="apellido" title="${message(code: 'jugador.apellido.label', default: 'Apellido')}" />
-					
+
 						<th><g:message code="jugador.equipo.label" default="Equipo" /></th>
 
                                                 <th><g:message code="jugador.goles.label" default="Goles" /></th>
-					
+
+                                                <th><g:message code="jugador.goles.label" default="Foto" /></th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${jugadores}" status="i" var="jugador">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
+
 						<td><g:link action="ver" id="${jugador.id}">${fieldValue(bean: jugador, field: "nombre")}</g:link></td>
-					
+
 						<td>${fieldValue(bean: jugador, field: "apellido")}</td>
-					
+
 						<td>${fieldValue(bean: jugador, field: "equipo")}</td>
 
                                                 <td>${fieldValue(bean: jugador, field: "goles")}</td>
 
-                                                <td valign="top" class="value"><img src="${createLink(action:'mostrar',id:jugador?.id)}" /></td>
-					
+                                                <td><img style="width: 115px; height: 130px;" src="${createLink(action:'imagen',id:jugador?.id)}" /></td>
+
+
+
 					</tr>
 				</g:each>
 				</tbody>

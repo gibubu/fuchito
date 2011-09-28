@@ -26,44 +26,31 @@ class JugadorController {
         return [jugador: jugador]
     }
 
-    def scaffold = Jugador
-
-//    def crea = {
-//        def jugador
-//        def usuario = springSecurityService.currentUser
-//        try {
-//            Jugador.withTransaction {
-//                jugador = new Jugador(params)
-//
-//                def archivo = request.getFile('archivo')
-//                if (!archivo.empty) {
-////                    imagen.nombre = archivo.originalFilename
-////                    imagen.tipoContenido = archivo.contentType
-//                    jugador.nombre = params.nombre
-//                    jugador.apellido = params.apellido
-//                    jugador.equipo = usuario.equipo
-//                    jugador.torneo = usuario.equipo.torneo.toString()
-//                    jugador.archivo = archivo.bytes
-//                }
-//
-//                jugador.save()
-//                flash.message = message(code: 'default.created.message', args: [message(code: 'jugador.label', default: 'Jugador'), jugador.nombre])
-//                redirect(action: "nuevo")
-//            }
-//        } catch(Exception e) {
-//            log.error "No se pudo crear el jugador", e
-//            flash.message = "No se pudo crear el jugador"
-//            render(view:'lista')
-//        }
-//    }
-
     def crea = {
         def usuario = springSecurityService.currentUser
-        def archivo = request.getFile('jugador')
         def jugador = new Jugador(params)
         jugador.equipo = usuario.equipo
         jugador.torneo = usuario.equipo.torneo.toString()
-        jugador.archivo = archivo.bytes
+
+        def archivo = request.getFile('imagen')
+                if (!archivo.empty) {
+                    byte[] f = archivo.bytes
+                    def imagen = new Imagen(
+                        nombre : archivo.originalFilename
+                        , tipoContenido : archivo.contentType
+                        , tamano : archivo.size
+                        , archivo : f
+                    )
+                    if (jugador.imagenes) {
+                        jugador.imagenes?.clear()
+                    } else {
+                        jugador.imagenes = []
+                    }
+                    jugador.imagenes << imagen
+                    jugador.save()
+           }
+
+
         if (jugador.save(flush: true)) {
             flash.message = message(code: 'default.created.message', args: [message(code: 'jugador.label', default: 'Jugador'), jugador.nombre])
 //            redirect(action: "ver", id: jugador.id)
@@ -104,7 +91,7 @@ class JugadorController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (jugador.version > version) {
-                    
+
                     jugador.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'jugador.label', default: 'Jugador')] as Object[], "Another user has updated this Jugador while you were editing")
                     render(view: "edita", model: [jugador: jugador])
                     return
@@ -198,47 +185,38 @@ class JugadorController {
         }
     }
 
-    def mostrar = {
-        def jugador = Jugador.get(params.id)
-        if (jugador) {
-            response.outputStream << jugador.archivo
-            return;
-        } else {
-            throw new RuntimeException('No se encontro al jugador')
-        }
-    }
+        def imagen = {
+                try {
+                    def jugador = Jugador.get(params.id)
+                    def foto
+                    for(x in jugador?.imagenes) {
+                        foto = x
+                        break;
+                    }
+                    if (!foto) {
+                        def directorio = servletContext.getRealPath("/images")
+                        def file = new File("${directorio}/oliver.jpg")
+                        foto = new Imagen(
+                            nombre : 'oliver.jpg'
+                            , tipoContenido : 'image/jpeg'
+                            , tamano : file.size()
+                            , archivo : file.getBytes()
+                        )
+                    }
+                    log.debug "Mostrando imagen ${foto.nombre}"
+                    log.debug "TipoContenido: ${foto.tipoContenido}"
+                    response.contentType = foto.tipoContenido
+                    //response.setHeader("Content-disposition", "attachment; filename=${foto?.nombre}")
+                    log.debug "Tamano: ${foto.tamano}"
+                    response.contentLength = foto.tamano
+                    response.outputStream << foto.archivo
+                    //response.outputStream.flush()
+                    //return;
+                } catch(Exception e) {
+                    log.error("No se pudo obtener la imagen", e)
+                }
+            }
 
-//    def imagen = {
-//        try {
-//            def producto = Producto.get(params.id)
-//            def foto
-//            for(x in producto?.imagenes) {
-//                foto = x
-//                break;
-//            }
-//            if (!foto) {
-//                def directorio = servletContext.getRealPath("/images")
-//                def file = new File("${directorio}/activo_fijo.jpg")
-//                foto = new Imagen(
-//                    nombre : 'activoFijo.jpg'
-//                    , tipoContenido : 'image/jpeg'
-//                    , tamano : file.size()
-//                    , archivo : file.getBytes()
-//                )
-//            }
-//            log.debug "Mostrando imagen ${foto.nombre}"
-//            log.debug "TipoContenido: ${foto.tipoContenido}"
-//            response.contentType = foto.tipoContenido
-//            //response.setHeader("Content-disposition", "attachment; filename=${foto?.nombre}")
-//            log.debug "Tamano: ${foto.tamano}"
-//            response.contentLength = foto.tamano
-//            response.outputStream << foto.archivo
-//            //response.outputStream.flush()
-//            //return;
-//        } catch(Exception e) {
-//            log.error("No se pudo obtener la imagen", e)
-//        }
-//    }
 
 //    def test = {
 //        def foto = Imagen.get(params.id)
